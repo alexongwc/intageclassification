@@ -1,0 +1,138 @@
+[
+  {
+    "id": "item_001",
+    "question_text": "1. Did the representative document all of a client's personal particulars? (ASK ALL a - d)",
+    "sub_items": [
+      {
+        "id": "item_002",
+        "question_text": "a. Age/DOB"
+      },
+      {
+        "id": "item_003",
+        "question_text": "b. Education qualifications"
+      },
+      {
+        "id": "item_004",
+        "question_text": "c. Language proficiency (f you fulfil any SC criteria)"
+      },
+      {
+        "id": "item_005",
+        "question_text": "d. Contact information"
+      }
+    ]
+  },
+  {
+    "id": "item_006",
+    "question_text": "2. CKA related information (Ask ALL a - c)",
+    "sub_items": [
+      {
+        "id": "item_007",
+        "question_text": "a. Fin related work education"
+      },
+      {
+        "id": "item_008",
+        "question_text": "b. Fin related work experience"
+      },
+      {
+        "id": "item_009",
+        "question_text": "c. Past investment experience - past 3 yrs 6 txn"
+      }
+    ]
+  },
+  {
+    "id": "item_010",
+    "question_text": "3. Financial related information",
+    "sub_items": [
+      {
+        "id": "item_011",
+        "question_text": "a. Financial objectives (Including the client's protection, savings, investments, or heath needs. Time horizon info should be indicated with the financial objectives) (ASK ALL a1 - a3)",
+        "sub_items": [
+          {
+            "id": "item_012",
+            "question_text": "a1) Check client's protection, savings, inv, or heath needs"
+          },
+          {
+            "id": "item_013",
+            "question_text": "a2) Time Horizon / tenure"
+          },
+          {
+            "id": "item_014",
+            "question_text": "a3) Budget"
+          }
+        ]
+      },
+      {
+        "id": "item_015",
+        "question_text": "b. Risk tolerance or profile (ASK ALL b1-b2)",
+        "sub_items": [
+          {
+            "id": "item_016",
+            "question_text": "b1) Risk profiling questions - Asked risk profiling questions on what level of loss OR attitude towards risk/ fluctuations in investment shopper is willing to accept?"
+          },
+          {
+            "id": "item_017",
+            "question_text": "b2) Inform you of your assessed risk profile"
+          }
+        ]
+      },
+      {
+        "id": "item_018",
+        "question_text": "c. Occupation or employment status"
+      },
+      {
+        "id": "item_019",
+        "question_text": "d. Financial situation (Including assets, liabilities, cash flow and annual income) (ASK ALL d1 - d4)",
+        "sub_items": [
+          {
+            "id": "item_020",
+            "question_text": "d1) Assets"
+          },
+          {
+            "id": "item_021",
+            "question_text": "d2) Liabilities"
+          },
+          {
+            "id": "item_022",
+            "question_text": "d3) Annual income"
+          },
+          {
+            "id": "item_023",
+            "question_text": "d4) Expenses"
+          }
+        ]
+      },
+      {
+        "id": "item_024",
+        "question_text": "g. Current investment portfolio, including any life policies or collective investment schemes (ASK ALL g1-g2)",
+        "sub_items": [
+          {
+            "id": "item_025",
+            "question_text": "g1) Investment holdings - e.g. collective investment schemes"
+          },
+          {
+            "id": "item_026",
+            "question_text": "g2) Insurance policies"
+          }
+        ]
+      },
+      {
+        "id": "item_027",
+        "question_text": "h. Inform you & properly document when amount to be committed is a substantial portion of your net worth or net annual cash flow surplus*"
+      },
+      {
+        "id": "item_028",
+        "question_text": "i. For any recommendation made in respect of any life policy, the no. of dependants of the client and the extent and duration of financial support required for each dependant",
+        "sub_items": [
+          {
+            "id": "item_029",
+            "question_text": "i1) the number of dependants of the client"
+          },
+          {
+            "id": "item_030",
+            "question_text": "i2) [IF CLIENT HAS DEPENDENTS] extent and duration of financial support required for dependants"
+          }
+        ]
+      }
+    ]
+  }
+]
