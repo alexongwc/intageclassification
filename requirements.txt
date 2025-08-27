@@ -1,0 +1,9 @@
+streamlit
+openai
+unstructured[docx]
+openpyxl
+vllm
+huggingface-hub
+nltk
+pandas
+xlrd
