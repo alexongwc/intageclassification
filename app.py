@@ -45,8 +45,12 @@ def extract_and_format_excel(excel_path):
                 
             formatted_lines.append(f"=== SHEET: {sheet_name} ===")
             
-            # Check for timestamp columns
-            timestamp_cols = [col for col in sheet_df.columns if any(keyword in col.lower() for keyword in ['time', 'timestamp', 'date', 'when', 'at'])]
+            # Check for timestamp columns - more precise matching
+            timestamp_cols = []
+            for col in sheet_df.columns:
+                col_lower = col.lower()
+                if any(keyword in col_lower for keyword in ['time', 'timestamp', 'date', 'when']) or col_lower in ['at'] or col_lower.endswith('_at') or col_lower.startswith('at_'):
+                    timestamp_cols.append(col)
             
             for index, row in sheet_df.iterrows():
                 row_parts = []
@@ -56,14 +60,17 @@ def extract_and_format_excel(excel_path):
                 if timestamp_cols:
                     timestamps = []
                     for ts_col in timestamp_cols:
-                        if pd.notna(row[ts_col]):
-                            timestamps.append(f"{ts_col}: {str(row[ts_col])}")
+                        if pd.notna(row[ts_col]) and str(row[ts_col]).strip() and str(row[ts_col]).strip().lower() not in ['', 'nan', 'none']:
+                            # Only add if it's actually a timestamp-like value
+                            timestamp_val = str(row[ts_col]).strip()
+                            if timestamp_val and not timestamp_val.lower().startswith('status'):
+                                timestamps.append(f"{ts_col}: {timestamp_val}")
                     if timestamps:
                         timestamp_info = f"[TIMESTAMP: {' | '.join(timestamps)}] "
                 
-                # Format all other columns
+                # Format all other columns (excluding timestamp columns from the main data)
                 for col, val in row.items():
-                    if pd.notna(val):
+                    if pd.notna(val) and col not in timestamp_cols:
                         row_parts.append(f"{col}: {str(val)}")
                 
                 if row_parts:
@@ -79,8 +86,12 @@ def extract_and_format_csv(csv_path):
         df = pd.read_csv(csv_path)
         formatted_lines = []
         
-        # Check for timestamp columns
-        timestamp_cols = [col for col in df.columns if any(keyword in col.lower() for keyword in ['time', 'timestamp', 'date', 'when', 'at'])]
+        # Check for timestamp columns - more precise matching
+        timestamp_cols = []
+        for col in df.columns:
+            col_lower = col.lower()
+            if any(keyword in col_lower for keyword in ['time', 'timestamp', 'date', 'when']) or col_lower in ['at'] or col_lower.endswith('_at') or col_lower.startswith('at_'):
+                timestamp_cols.append(col)
         
         for index, row in df.iterrows():
             row_parts = []
@@ -90,14 +101,17 @@ def extract_and_format_csv(csv_path):
             if timestamp_cols:
                 timestamps = []
                 for ts_col in timestamp_cols:
-                    if pd.notna(row[ts_col]):
-                        timestamps.append(f"{ts_col}: {str(row[ts_col])}")
+                    if pd.notna(row[ts_col]) and str(row[ts_col]).strip() and str(row[ts_col]).strip().lower() not in ['', 'nan', 'none']:
+                        # Only add if it's actually a timestamp-like value
+                        timestamp_val = str(row[ts_col]).strip()
+                        if timestamp_val and not timestamp_val.lower().startswith('status'):
+                            timestamps.append(f"{ts_col}: {timestamp_val}")
                 if timestamps:
                     timestamp_info = f"[TIMESTAMP: {' | '.join(timestamps)}] "
             
-            # Format all other columns
+            # Format all other columns (excluding timestamp columns from the main data)
             for col, val in row.items():
-                if pd.notna(val):
+                if pd.notna(val) and col not in timestamp_cols:
                     row_parts.append(f"{col}: {str(val)}")
             
             if row_parts:
@@ -179,19 +193,19 @@ IMPORTANT INSTRUCTIONS:
 4. Only mark as "answered" if you find DIRECT evidence
 5. Extract the EXACT quotes from the conversation as evidence
 6. MANDATORY: Every evidence quote MUST start with the speaker label [Mysteryshopper]: or [Insuranceagent]:
-7. If you see timestamp information in the format [TIMESTAMP: ...], include it with the evidence
-8. For structured data, look for Row numbers and timestamp markers to provide context
+7. TIMESTAMP EXTRACTION: When you find evidence, look for [TIMESTAMP: Start_Time: XX:XX:XX,XXX | End_Time: XX:XX:XX,XXX] in the same row
+8. Extract ONLY the actual time values and put them in the timestamps array
+9. Do NOT include timestamp info in the evidence quotes - keep evidence clean with just speaker and quote
 
-Critical: Output ONLY valid JSON, nothing else.
 
 OUTPUT FORMAT:
 {{
   "item_id": "{item['id']}",
   "is_answered": true,
-  "evidence": ["[TIMESTAMP: time_info] exact quote from transcript", "Row X: [TIMESTAMP: time_info] data content"],
+  "evidence": ["[A]: exact quote from transcript"],
   "answer_summary": "Brief summary",
   "confidence": 0.8,
-  "timestamps": ["time1", "time2"]
+  "timestamps": ["00:01:27,720-00:01:37,860"]
 }}"""
 
         try:
